@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\SocialiteController;
+use App\Livewire\Auth\Login as AuthLogin;
 use App\Livewire\Counter;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +19,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('test', function () {
-    return view('nyoba');
-});
-Route::get('counter',Counter::class);
+Route::get('login', AuthLogin::class)->name("login")->middleware(middleware:'guest');
+
+Route::get('counter',Counter::class)->name("counter");
+// Untuk redirect ke Google
+Route::get('login/google/redirect', [SocialiteController::class, 'redirect'])->middleware(['guest'])->name('redirect');
+
+// Untuk callback dari Google
+Route::get('login/google/callback', [SocialiteController::class, 'callback'])->middleware(['guest'])->name('callback');
