@@ -1,11 +1,13 @@
 <?php
  
 namespace App\Livewire;
- 
+
+use Livewire\Attributes\Title;
 use Livewire\Component;
  
 class Counter extends Component
 {
+    #[Title("Testing")]
     public $count = 1;
  
     public function increment()

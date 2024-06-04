@@ -19,9 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('livewire.dashboard');
-});
+Route::get('/', Dashboard::class)->name("dashboard");
 Route::get('login', AuthLogin::class)->name("login")->middleware(middleware:'guest');
 
 Route::get('counter',Counter::class)->name("counter");
