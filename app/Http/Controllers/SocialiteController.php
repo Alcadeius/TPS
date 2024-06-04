@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Str;
 
@@ -12,7 +13,7 @@ class SocialiteController extends Controller
     
     public function redirect()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')->with(['prompt' => 'consent'])->redirect();
     }
 
     public function callback()
@@ -48,7 +49,9 @@ class SocialiteController extends Controller
 
     public function logout(Request $request)
     {
-        auth('web')->logout();
+        // auth('web')->logout();
+        Auth::logout();
+        $request->session()->forget('token');
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
