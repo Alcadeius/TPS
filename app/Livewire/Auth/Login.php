@@ -16,7 +16,19 @@ class Login extends Component
             'password'=>'required|min:6',
         ]);
         if(Auth::attempt($validate)){
-            return redirect()->route('select');
+            $cek=Auth::user()->leveluser;
+            if($cek=="developer"){
+                return redirect()->route('beranda');
+            }
+            else if($cek=="admin"){
+                return redirect()->route('dashboard');
+            }
+            else if($cek=="customer"){
+                return redirect()->route('dashboard');
+            }
+            else{
+                return redirect()->route('select');
+            }
         }
         else{
             return redirect()->route('login')->with('error','Email/Password salah');

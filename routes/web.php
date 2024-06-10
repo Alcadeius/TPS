@@ -9,6 +9,8 @@ use App\Livewire\Dashboard;
 use App\Livewire\Developer\Dashboard as DeveloperDashboard;
 use App\Livewire\Info\Profile;
 use App\Livewire\Info\User;
+use App\Livewire\Job\Post;
+use App\Livewire\Landing;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,15 +26,17 @@ use Illuminate\Support\Facades\Route;
 Route::fallback(function () {
     return redirect()->back();
 })->name('404');
-Route::get('/', Dashboard::class)->name("dashboard")->middleware('role:admin','role:customer');
-Route::get('beranda',DeveloperDashboard::class)->name('beranda')->middleware('auth','role:developer');
+// Route::get('/', Dashboard::class)->name("dashboard")->middleware('role:admin','role:customer','guest');
+Route::get('beranda',DeveloperDashboard::class)->name('beranda')->middleware('role:developer');
 Route::get('login', AuthLogin::class)->name("login")->middleware(middleware:'guest');
-Route::get('counter',Counter::class)->name("counter");
+// Route::get('counter',Counter::class)->name("counter");
 Route::get('register',Register::class)->name("register")->middleware('guest');
 Route::get('/logout', [SocialiteController::class,'logout'])->middleware(middleware:'auth')->name('logout');
-// Route::get('dashboard',Dashboard::class)->name("dashboard")->middleware('guest');
+Route::get('/',Landing::class)->name("landing");
+Route::get('dashboard',Dashboard::class)->name("dashboard")->middleware('role:customer');
 Route::get('profile',Profile::class)->name('profile')->middleware('auth');
-Route::get('select',User::class)->name('select')->middleware('auth','role:baru');
+Route::get('select',User::class)->name('select')->middleware('auth');
+Route::get('post',Post::class)->name('post')->middleware('role:customer');
 // Untuk redirect ke Google
 Route::get('login/google/redirect', [SocialiteController::class, 'redirect'])->middleware(['guest'])->name('redirect');
 

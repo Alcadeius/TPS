@@ -7,26 +7,23 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class leveluser
+class notdev
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next,$role): Response
+    public function handle(Request $request, Closure $next): Response
     {
         if (!Auth::check()) {
             return redirect()->route('login');
         }
-        $admin="admin";
         $user = Auth::user();
 
-        if ($user->leveluser != $role) {
-            if($user->leveluser !=$admin){
-                return redirect()->back();
-            }
+        if ($user->leveluser == "developer") {
+            return redirect()->route('beranda');
         }
-            return $next($request);
+        return $next($request);
     }
 }

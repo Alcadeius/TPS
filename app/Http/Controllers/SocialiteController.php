@@ -44,8 +44,13 @@ class SocialiteController extends Controller
         // Jika ada user langsung login saja
         auth('web')->login($userFromDatabase);
         session()->regenerate();
-
-        return redirect()->route('select');
+        $cek=$userFromDatabase->leveluser;
+        if($cek=="developer"){
+            return redirect()->route('beranda');
+        }
+        else{
+            return redirect()->route('dashboard');
+        }
     }
 
     public function logout(Request $request)
