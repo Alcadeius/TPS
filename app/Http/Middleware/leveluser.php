@@ -22,8 +22,7 @@ class leveluser
 
         $user = Auth::user();
 
-        if ($user->level != $role) {
-            // Jika level pengguna tidak sesuai, mungkin Anda ingin me-redirect ke halaman tertentu atau memberikan pesan error
+        if ($user->leveluser != $role) {
             return redirect()->back();
         }
         return $next($request);

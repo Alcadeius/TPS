@@ -16,7 +16,7 @@ class Login extends Component
             'password'=>'required|min:6',
         ]);
         if(Auth::attempt($validate)){
-            return redirect()->route('dashboard');
+            return redirect()->route('select');
         }
         else{
             return redirect()->route('login')->with('error','Email/Password salah');

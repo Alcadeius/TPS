@@ -13,7 +13,7 @@ class SocialiteController extends Controller
     
     public function redirect()
     {
-        return Socialite::driver('google')->with(['prompt' => 'consent'])->redirect();
+        return Socialite::driver('google')->redirect(['prompt' => 'consent']);
     }
 
     public function callback()
@@ -30,6 +30,7 @@ class SocialiteController extends Controller
                 'name' => $userFromGoogle->getName(),
                 'email' => $userFromGoogle->getEmail(),
                 'password' => bcrypt(Str::random(10)),
+                'leveluser' => "baru",
             ]);
             $newUser->save();
 
@@ -37,14 +38,14 @@ class SocialiteController extends Controller
             auth('web')->login($newUser);
             session()->regenerate();
 
-            return redirect('/');
+            return redirect()->route('select');
         }
 
         // Jika ada user langsung login saja
         auth('web')->login($userFromDatabase);
         session()->regenerate();
 
-        return redirect('/');
+        return redirect()->route('select');
     }
 
     public function logout(Request $request)
@@ -55,7 +56,7 @@ class SocialiteController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->back();
     }
 
 }

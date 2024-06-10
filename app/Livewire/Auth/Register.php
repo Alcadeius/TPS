@@ -18,12 +18,16 @@ class Register extends Component
             'email'=>'required|email|unique:users',
             'password'=>'required|min:6',
         ]);
-        User::create([
+        $new=User::create([
             'name'=>$validate['name'],
             'email'=>$validate['email'],
             'password'=>$validate['password'],
+            'leveluser'=>"baru",
         ]);
-        return redirect()->route('login');
+        $new->save();
+        auth('web')->login($new);
+        session()->regenerate();
+        return redirect()->route('select');
     }
     #[Title("Register")]
     public function render()
