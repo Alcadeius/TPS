@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string("title");
             $table->string("desc");
             $table->double("price");
-            $table->bigInteger("user_id")->unique();
+            $table->bigInteger("user_id");
             $table->timestamps();
         });
     }
