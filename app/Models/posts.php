@@ -17,5 +17,6 @@ class posts extends Model
         'desc',
         'price',
         'user_id',
+        'dev_id',
     ];
 }

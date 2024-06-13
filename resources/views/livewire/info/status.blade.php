@@ -101,12 +101,27 @@
                                 {{$post->price}}
                             </td>                           
                             <td class="px-6 py-4">
-                                {{$dev}}
-                            </td>                           
+                                {{$post->dev_name}}
+                            </td>           
+                            @if($post->status!=null)
                             <td class="px-6 py-4">
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Accept</a>
-                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Decline</a>
+                                <button disabled class="font-medium text-blue-600 dark:text-blue-500">{{$post->status}} </button>
                             </td>
+                            @elseif($post->dev_name==null)
+                            <td class="px-6 py-4">
+                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"></a>
+                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"></a>
+                            </td>
+                            @elseif($toggle==false)
+                                <td class="px-6 py-4">
+                                    <button wire:click="approve()" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Accept</button>
+                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Decline</a>
+                                </td>
+                            @else
+                            <td class="px-6 py-4">
+                                <a href="{{url("transaksi/$post->id")}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Confirm</a>
+                            </td>
+                            @endif
                         </tr>
                         @endforeach
                     </tbody>

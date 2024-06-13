@@ -12,17 +12,17 @@ use function Laravel\Prompts\alert;
 
 class Status extends Component
 {
+    public $snapToken;
     public $posts;
     public $user_id;
-    public $dev;
+    public $dev_id;
+    public $status;
+    public $toggle=false;
     public function mount(){
         $this->posts=posts::where('user_id',Auth::user()->id)->get(); 
     }   
-    #[On("minta")]
-    public function minta($id){
-        alert("masuk");
-        $hasil=$id;
-        $this->dev=User::where('name',$hasil->name)->get();
+    public function approve(){
+        $this->toggle=true;
     }
     #[Title("Status")]
     public function render()

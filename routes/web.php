@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SocialiteController;
+use App\Http\Controllers\WebhookController;
 use App\Livewire\Auth\Login as AuthLogin;
 use App\Livewire\Auth\Register;
 use App\Livewire\Counter;
@@ -10,6 +11,7 @@ use App\Livewire\Developer\Dashboard as DeveloperDashboard;
 use App\Livewire\Info\Data;
 use App\Livewire\Info\Profile;
 use App\Livewire\Info\Status;
+use App\Livewire\Info\Transaction;
 use App\Livewire\Info\User;
 use App\Livewire\Job\Browse;
 use App\Livewire\Job\Post;
@@ -44,7 +46,9 @@ Route::get('post',Post::class)->name('post')->middleware('role:customer');
 Route::get('browse',Browse::class)->name('browse')->middleware('auth');
 Route::get('profile/data',Data::class)->name('data')->middleware('role:customer');
 Route::get('profile/status',Status::class)->name('status')->middleware('role:customer');
+Route::get('/transaksi/{id}',Transaction::class)->name('transaksi')->middleware('role:customer');
 Route::get('/update/{id}',Update::class)->name('update')->middleware('role:customer');
+Route::get('/news/{id}',[WebhookController::class,'handleMidtransWebhook'])->middleware('role:customer')->name('news');
 // Untuk redirect ke Google
 Route::get('login/google/redirect', [SocialiteController::class, 'redirect'])->middleware(['guest'])->name('redirect');
 
